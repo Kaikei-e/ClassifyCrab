@@ -3,18 +3,23 @@ use std::io::prelude::*;
 use std::path::Path;
 
 fn main() {
-    let path = Path::new("testText.txt");
-    let display = path.display();
+    use clap::Parser;
 
-    let mut f = match File::open(&path) {
-        Err(why) => panic!("couldn't open {} : {}", display, why),
-        Ok(f) => f,
-    };
+    #[derive(Parser, Debug)]
+    #[clap("Kaikei-e", "0.0.1", "The classifier of zip files.", long_about = None)]
+    struct Args {
+        #[clap(short, long)]
+        verbose: bool,
 
-    let mut s = String::new();
-    match f.read_to_string(&mut s) {
-        Err(why) => panic!("couldn't read {} : {}", display, why),
-        Ok(_) => println!("{} contains:\n{}", display, s)
+        #[clap(flatten)]
+        will_proceed:
     }
 
+    fn main() {
+        let args = Args::parse();
+
+        for _ in 0..args.count {
+            println!("Hello {}!", args.name)
+        }
+    }
 }
