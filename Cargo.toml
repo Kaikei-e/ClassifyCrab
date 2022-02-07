@@ -7,3 +7,11 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "3.0.14", features = ["derive"] }
+
+[lib]
+path = "src/lib.rs"
+
+
+[[bin]]
+path = "src/main.rs"
+name = "classifyCrab"

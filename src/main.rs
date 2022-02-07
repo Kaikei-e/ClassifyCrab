@@ -1,8 +1,10 @@
 use clap::{Parser, Subcommand};
 use std::path::{Path, PathBuf};
 
+use classifyCrab::run;
+
 #[derive(Parser)]
-#[clap("Kaikei-e", "0.0.1", "The classifier of zip files.", long_about = None)]
+#[clap(author, version, about, long_about = None)]
 struct Cli {
     #[clap(short, long, parse(from_occurrences))]
     debug: usize,
@@ -36,4 +38,6 @@ fn main() {
         Some(Commands::Inspect { file_number }) => {}
         None => {}
     }
+
+    run()
 }
