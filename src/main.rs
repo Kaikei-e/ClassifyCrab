@@ -35,7 +35,9 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Commands::Inspect { file_number }) => {}
+        Some(Commands::Inspect { file_number }) => {
+
+        }
         None => {}
     }
 
