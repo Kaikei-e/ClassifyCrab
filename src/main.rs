@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 use std::path::{Path, PathBuf};
+mod file_manager;
 
-use classifyCrab::run;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -17,7 +17,7 @@ struct Cli {
 enum Commands {
     Inspect {
         #[clap(short, long)]
-        file_number: Vec<PathBuf>,
+        file_number: Path,
     },
 
     Target {
@@ -35,11 +35,10 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Commands::Inspect { file_number }) => {
-
+        Some(Commands::Inspect { file_number: file_path }) => {
+            file_manager::file_searcher::zip_searcher(file_path)
         }
         None => {}
     }
 
-    run()
 }

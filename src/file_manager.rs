@@ -1,10 +1,12 @@
-mod file_searcher;
+pub mod file_searcher;
+mod file_calculator;
+
 use file_searcher::zip_searcher;
 
 mod inspector{
     zip_searcher!();
 
-    fn file_calculator(){}
+    file_calculator!();
 }
 
 mod extractor{
