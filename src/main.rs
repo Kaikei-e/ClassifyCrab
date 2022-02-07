@@ -1,25 +1,40 @@
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+
+#[derive(Parser, Debug)]
+#[clap("Kaikei-e", "0.0.1", "The classifier of zip files.", long_about = None)]
+struct Cli {
+    #[clap(short, long, parse(from_occurrences))]
+    debug: usize,
+
+    #[clap(subcommand)]
+    command: Option<Commands>,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    Inspect {
+        #[clap(short, long)]
+        file_number: Vec<PathBuf>,
+    },
+
+    Target {
+        #[clap(short, long)]
+        file_path: Path,
+    },
+
+    Classify {
+        #[clap(short, long)]
+        classify: Classify(),
+    },
+}
 
 fn main() {
-    use clap::Parser;
+    let cli = Cli::parse;
 
-    #[derive(Parser, Debug)]
-    #[clap("Kaikei-e", "0.0.1", "The classifier of zip files.", long_about = None)]
-    struct Args {
-        #[clap(short, long)]
-        verbose: bool,
-
-        #[clap(flatten)]
-        will_proceed:
-    }
-
-    fn main() {
-        let args = Args::parse();
-
-        for _ in 0..args.count {
-            println!("Hello {}!", args.name)
-        }
+    match &cli.command {
+        Some(Commands::Inspect { file_number }) => {}
+        None => {}
     }
 }
