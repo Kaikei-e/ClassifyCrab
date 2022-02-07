@@ -1,8 +1,7 @@
-use std::fs::File;
-use std::io::prelude::*;
+use clap::{Parser, Subcommand};
 use std::path::{Path, PathBuf};
 
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 #[clap("Kaikei-e", "0.0.1", "The classifier of zip files.", long_about = None)]
 struct Cli {
     #[clap(short, long, parse(from_occurrences))]
@@ -31,7 +30,7 @@ enum Commands {
 }
 
 fn main() {
-    let cli = Cli::parse;
+    let cli = Cli::parse();
 
     match &cli.command {
         Some(Commands::Inspect { file_number }) => {}
