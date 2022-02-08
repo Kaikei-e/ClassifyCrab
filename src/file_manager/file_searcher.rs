@@ -17,21 +17,15 @@ pub fn zip_searcher(dir_path: &Path) {
         let path = path;
 
         //let extension = path.extension().unwrap();
-        if is_zip_checker(path_buf.file_name().unwrap()){
+        if is_zip_checker(path_buf.file_name().unwrap()) {
             let rpath = path.unwrap().path();
             file_list.push(&*rpath);
-
         }
-
     }
 
     println!("{}", file_list.len())
 }
 
 fn is_zip_checker(p: &OsStr) -> bool {
-    return if p == OsStr::new("zip") {
-        true
-    }else {
-        false
-    }
+    return if p == OsStr::new("zip") { true } else { false };
 }
