@@ -1,6 +1,7 @@
-use std::ffi::OsStr;
+use std::borrow::Borrow;
+use std::ffi::{OsStr, OsString};
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub fn zip_searcher(dir_path: &Path) {
     let mut file_list: Vec<&Path> = vec![];
@@ -9,22 +10,35 @@ pub fn zip_searcher(dir_path: &Path) {
         Ok(x) => x,
         Err(x) => panic!("{}", x),
     } {
-        let path_clone = path.clone().expect("Failed to clone file path.");
-        let mut path_buf = path.unwrap().path();
-        //let rpath = path;
+        let path = path.unwrap();
+        let mut pa = path.path().as_os_str();
 
-        if is_zip_checker(path_buf.file_name().unwrap()) {
-            file_list.push(path_clone.unwrap().path().borrow());
+        if pa == OsStr::new("zip") {
+            file_list.push(pa.as_ref());
         }
+        /*
+               let (return_path, boo) = is_zip_checker(&pa);
+
+               if boo {
+                   file_list.push(zip_list_pusher(return_path.as_ref()));
+               }
+
+        */
     }
 
     println!("{}", file_list.len());
 }
 
-fn is_zip_checker(p: &OsStr) -> bool {
-    return if p == OsStr::new("zip") { true } else { false };
+fn is_zip_checker(p: &PathBuf) -> (&OsStr, bool) {
+    let pa = p.file_name().unwrap();
+
+    return if pa == OsStr::new("zip") {
+        (&pa, true)
+    } else {
+        (&pa, false)
+    };
 }
 
-fn zip_list_pusher(push_target: Box<Path>) -> Box<Path> {
+fn zip_list_pusher(push_target: &Path) -> &Path {
     push_target
 }
