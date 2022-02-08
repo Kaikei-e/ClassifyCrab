@@ -12,9 +12,9 @@ pub fn zip_searcher(dir_path: &Path) {
     } {
         //let path = path.unwrap();
         let papa = path.unwrap();
-        let mut pa = path.unwrap().path().as_os_str();
+        let mut pa = path.unwrap().path();
 
-        if pa == OsStr::new("zip") {
+        if is_zip_checker(&pa) {
             file_list.push(papa.path().as_path());
         }
     }
@@ -22,14 +22,17 @@ pub fn zip_searcher(dir_path: &Path) {
     println!("{}", file_list.len());
 }
 
-fn is_zip_checker(p: &PathBuf) -> (OsStr, bool) {
+fn is_zip_checker(p: &PathBuf) -> bool {
     let pa = p.file_name().unwrap();
 
-    return if pa == OsStr::new("zip") {
-        (*pa, true)
-    } else {
-        (*pa, false)
-    };
+    return if pa == OsStr::new("zip") { true } else { false };
+
+    //
+    // return if pa == OsStr::new("zip") {
+    //     (&*pa.into_os_string(), true)
+    // } else {
+    //     (&*pa.into_os_string(), false)
+    // };
 }
 
 fn zip_list_pusher(push_target: &Path) -> &Path {
