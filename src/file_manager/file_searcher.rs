@@ -16,14 +16,6 @@ pub fn zip_searcher(dir_path: &Path) {
         if pa == OsStr::new("zip") {
             file_list.push(pa.as_ref());
         }
-        /*
-               let (return_path, boo) = is_zip_checker(&pa);
-
-               if boo {
-                   file_list.push(zip_list_pusher(return_path.as_ref()));
-               }
-
-        */
     }
 
     println!("{}", file_list.len());
