@@ -10,12 +10,12 @@ pub fn zip_searcher(dir_path: &Path) {
         Ok(x) => x,
         Err(x) => panic!("{}", x),
     } {
-        //let path = path.unwrap();
-        let papa = path.unwrap();
-        let mut pa = path.unwrap().path();
+        let mut pa = &path.as_ref().unwrap().path();
+        let papa = &path.as_ref().unwrap();
+        let papapath = &papa.path().as_path();
 
-        if is_zip_checker(&pa) {
-            file_list.push(papa.path().as_path());
+        if is_zip_checker(pa) {
+            file_list.push(*papapath);
         }
     }
 
