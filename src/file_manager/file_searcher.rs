@@ -1,6 +1,7 @@
 use std::borrow::Borrow;
 use std::ffi::{OsStr, OsString};
 use std::fs;
+use std::fs::DirEntry;
 use std::path::{Path, PathBuf};
 
 pub fn zip_searcher(dir_path: &Path) {
@@ -12,10 +13,10 @@ pub fn zip_searcher(dir_path: &Path) {
     } {
         let mut pa = &path.as_ref().unwrap().path();
         let papa = &path.as_ref().unwrap();
-        let papapath = &papa.path().as_path();
+        let papapath = papa.to_owned();
 
         if is_zip_checker(pa) {
-            file_list.push(*papapath);
+            file_list.push(papapath.path().as_path());
         }
     }
 
