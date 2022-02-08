@@ -10,24 +10,25 @@ pub fn zip_searcher(dir_path: &Path) {
         Ok(x) => x,
         Err(x) => panic!("{}", x),
     } {
-        let path = path.unwrap();
-        let mut pa = path.path().as_os_str();
+        //let path = path.unwrap();
+        let papa = path.unwrap();
+        let mut pa = path.unwrap().path().as_os_str();
 
         if pa == OsStr::new("zip") {
-            file_list.push(pa.as_ref());
+            file_list.push(papa.path().as_path());
         }
     }
 
     println!("{}", file_list.len());
 }
 
-fn is_zip_checker(p: &PathBuf) -> (&OsStr, bool) {
+fn is_zip_checker(p: &PathBuf) -> (OsStr, bool) {
     let pa = p.file_name().unwrap();
 
     return if pa == OsStr::new("zip") {
-        (&pa, true)
+        (*pa, true)
     } else {
-        (&pa, false)
+        (*pa, false)
     };
 }
 
