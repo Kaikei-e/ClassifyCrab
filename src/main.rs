@@ -27,7 +27,7 @@ enum Commands {
 
     Classify {
         #[clap(short, long)]
-        classify: Classify(),
+        classify: file_manager::file_searcher(),
     },
 }
 
